@@ -1,14 +1,14 @@
 #include <pebble.h>
 
-#define FACE_BACKGROUND_COLOUR GColorBlack
-#define PIP_COLOUR GColorWhite
+#define FACE_BACKGROUND_COLOUR GColorWhite
+#define PIP_COLOUR GColorBlack
 #define HOUR_COLOUR GColorDarkGreen
-#define MINUTE_COLOUR GColorBrightGreen
-#define PIP_ARC_THICKNESS 2
-#define PIP_ARC_LENGTH 1
-#define HOUR_ARC_THICKNESS 3
+#define MINUTE_COLOUR GColorOxfordBlue
+#define PIP_ARC_THICKNESS 5
+#define PIP_ARC_LENGTH 2
+#define HOUR_ARC_THICKNESS 15
 #define HOUR_ARC_LENGTH 5
-#define MINUTE_ARC_THICKNESS 5
+#define MINUTE_ARC_THICKNESS 30
 #define MINUTE_ARC_LENGTH 5
 
 static Window *window;
@@ -24,7 +24,6 @@ static void face_update_proc(Layer *l, GContext *ctx) {
 
 	// Draw the pips at quarter hours.
 	graphics_context_set_fill_color(ctx, PIP_COLOUR);
-	graphics_context_set_stroke_color(ctx, PIP_COLOUR);
 	graphics_fill_radial(ctx, r, GOvalScaleModeFitCircle, PIP_ARC_THICKNESS, DEG_TO_TRIGANGLE(0 - PIP_ARC_LENGTH), DEG_TO_TRIGANGLE(0 + PIP_ARC_LENGTH));
 	graphics_fill_radial(ctx, r, GOvalScaleModeFitCircle, PIP_ARC_THICKNESS, DEG_TO_TRIGANGLE(90 - PIP_ARC_LENGTH), DEG_TO_TRIGANGLE(90 + PIP_ARC_LENGTH));
 	graphics_fill_radial(ctx, r, GOvalScaleModeFitCircle, PIP_ARC_THICKNESS, DEG_TO_TRIGANGLE(180 - PIP_ARC_LENGTH), DEG_TO_TRIGANGLE(180 + PIP_ARC_LENGTH));
@@ -33,13 +32,11 @@ static void face_update_proc(Layer *l, GContext *ctx) {
 	// 0 <= hour < 24; 1440 minutes in a day; ((hour * 60 + min) % 720) / 720 * 360; 360 / 720 = 0.5
 	int hour_degrees = (t.tm_hour * 60 + t.tm_min) % 720 / 2;
 	graphics_context_set_fill_color(ctx, HOUR_COLOUR);
-	graphics_context_set_stroke_color(ctx, HOUR_COLOUR);
 	graphics_fill_radial(ctx, r, GOvalScaleModeFitCircle, HOUR_ARC_THICKNESS, DEG_TO_TRIGANGLE(hour_degrees - HOUR_ARC_LENGTH), DEG_TO_TRIGANGLE(hour_degrees + HOUR_ARC_LENGTH));
 
 	// 0 <= minute < 59; 360 / 60 = 6
 	int minute_degrees = t.tm_min * 6;
 	graphics_context_set_fill_color(ctx, MINUTE_COLOUR);
-	graphics_context_set_stroke_color(ctx, MINUTE_COLOUR);
 	graphics_fill_radial(ctx, r, GOvalScaleModeFitCircle, MINUTE_ARC_THICKNESS, DEG_TO_TRIGANGLE(minute_degrees - MINUTE_ARC_LENGTH), DEG_TO_TRIGANGLE(minute_degrees + MINUTE_ARC_LENGTH));
 }
 
