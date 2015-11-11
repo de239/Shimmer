@@ -10,7 +10,7 @@
     "watchface": true
   },
   "appKeys": {
-    "dummy": 0
+    "KEY_TEMPERATURE": 0
   },
   "resources": {
     "media": []
