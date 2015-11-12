@@ -14,14 +14,16 @@ function locationSuccess(pos) {
 		function(responseText) {
 			var json = JSON.parse(responseText);
 
-			// Temperature in Kelvin
-			var temperature = Math.round(json.main.temp - 273.15);
+			if(json) {
+				// Temperature in Kelvin
+				var temperature = Math.round(json.main.temp - 273.15);
 
-			var dict = {
-				'KEY_TEMPERATURE' : temperature
-			};
+				var dict = {
+					'KEY_TEMPERATURE' : temperature
+				};
 
-			Pebble.sendAppMessage(dict);
+				Pebble.sendAppMessage(dict);
+			}
 		}
 	);
 }
