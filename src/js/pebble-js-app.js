@@ -8,7 +8,7 @@ var xhrRequest = function (url, type, callback) {
 };
 
 function locationSuccess(pos) {
-	var weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=ffa299668c58fc94c17e755d76716d60';
+	var weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + owm_api_key;
 
 	xhrRequest(weather_url, 'GET', 
 		function(responseText) {
@@ -23,6 +23,8 @@ function locationSuccess(pos) {
 				};
 
 				Pebble.sendAppMessage(dict);
+			} else {
+				console.log("null response from OpenWeatherMap");
 			}
 		}
 	);
