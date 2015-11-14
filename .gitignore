@@ -1,6 +1,11 @@
+# Ignore API key
+src/js/owm_api_key.js
 
 # Ignore build generated files
 build
+
+# Ignore vim swap files
+.*.swp
 
 # Ignore waf lock file
 .lock-waf*
