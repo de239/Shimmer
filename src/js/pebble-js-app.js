@@ -8,6 +8,7 @@ var xhrRequest = function (url, type, callback) {
 };
 
 function locationSuccess(pos) {
+	// XXX: Note that owm_api_key must be defined somewhere!
 	var weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + owm_api_key;
 
 	xhrRequest(weather_url, 'GET', 
