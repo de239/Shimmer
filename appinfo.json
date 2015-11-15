@@ -13,6 +13,13 @@
     "KEY_TEMPERATURE": 0
   },
   "resources": {
-    "media": []
+    "media": [
+	{
+      "menuIcon": true,
+      "type": "png",
+      "name": "IMAGE_MENU_ICON",
+      "file": "images/icon.png"
+	}
+	]
   }
 }
