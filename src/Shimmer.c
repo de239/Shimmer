@@ -2,8 +2,8 @@
 
 #define FACE_BACKGROUND_COLOUR GColorWhite
 #define PIP_COLOUR GColorBlack
-#define HOUR_COLOUR GColorDarkGreen
-#define MINUTE_COLOUR GColorOxfordBlue
+#define HOUR_COLOUR COLOR_FALLBACK(GColorDarkGreen, GColorBlack)
+#define MINUTE_COLOUR COLOR_FALLBACK(GColorOxfordBlue, GColorBlack)
 #define PIP_ARC_THICKNESS 5
 #define PIP_ARC_LENGTH 2
 #define HOUR_ARC_THICKNESS 15
@@ -25,7 +25,10 @@ static Window *window;
 static Layer *face_layer;
 static TextLayer *temperature_layer;
 
-int temperature;
+#define TEMPERATURE_UNINITIALISED 65535 // Flag for uninitialised; unlikely to happen for real
+
+int temperature = TEMPERATURE_UNINITIALISED;
+
 char temperature_string[5];
 
 static void face_update_proc(Layer *l, GContext *ctx) {
@@ -92,7 +95,8 @@ static void window_load(Window *window) {
 
 	text_layer_set_font(temperature_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_MEDIUM_NUMBERS));
 	text_layer_set_text_alignment(temperature_layer, GTextAlignmentCenter);
-	text_layer_set_text(temperature_layer, "--");
+	if(temperature == TEMPERATURE_UNINITIALISED)
+		text_layer_set_text(temperature_layer, "--");
 
 	layer_add_child(face_layer, text_layer_get_layer(temperature_layer));
 }
