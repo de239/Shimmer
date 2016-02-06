@@ -19,7 +19,7 @@
 
 #define APPMESSAGE_BUF_SIZE APP_MESSAGE_INBOX_SIZE_MINIMUM
 
-#define WEATHER_UPDATE_MINS 30
+#define WEATHER_UPDATE_MINS 1
 
 static Window *window;
 static Layer *face_layer;

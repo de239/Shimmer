@@ -1,3 +1,5 @@
+var owm_api_key;
+
 var xhrRequest = function (url, type, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function () {
@@ -9,7 +11,7 @@ var xhrRequest = function (url, type, callback) {
 
 function locationSuccess(pos) {
 	// XXX: Note that owm_api_key must be defined somewhere!
-	var weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + owm_api_key;
+	var weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + owm_api_key.owm_api_key;
 
 	xhrRequest(weather_url, 'GET', 
 		function(responseText) {
@@ -45,6 +47,8 @@ function getWeather() {
 
 Pebble.addEventListener('ready', 
 	function(e) {
+		owm_api_key = require('owm_api_key');
+
 		Pebble.sendAppMessage({});
 
 		getWeather();
@@ -57,3 +61,4 @@ Pebble.addEventListener('appmessage',
 		getWeather();
 	}                     
 );
+
